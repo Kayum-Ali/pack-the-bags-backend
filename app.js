@@ -3,6 +3,10 @@ const app = express();
 require("dotenv").config();
 const { destinations, db } = require("./db");
 
+app.get("/", (req, res) => {
+  res.json({ status: 200, msg: "Server running properly" });
+});
+
 // Routes
 const destinationRoute = require("./routes/destinations.route");
 app.use("/destinations", destinationRoute);
