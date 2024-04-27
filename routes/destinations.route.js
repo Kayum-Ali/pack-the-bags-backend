@@ -1,4 +1,12 @@
-const { destinations } = require("../db");
+//controllers
+const {
+  getAllDestinations,
+  getDestinationsByCountry,
+  createNewDestination,
+  updateDestination,
+  deleteDestination,
+  getDestinationDetails,
+} = require("../controllers/destinations.controller");
 
 const router = require("express").Router();
 
@@ -7,14 +15,11 @@ router.get("/", (req, res) => {
   res.json({ status: 400, msg: "Please give us a valid get url" });
 });
 
-router.get("/all", (req, res) => {
-  destinations
-    .find()
-    .toArray()
-    .then((data) => {
-      res.status(200);
-      res.send(data);
-    });
-});
+router.get("/all", getAllDestinations);
+router.get("/:_id", getDestinationDetails);
+router.get("/country/:country", getDestinationsByCountry);
+router.post("/create", createNewDestination);
+router.put("/update", updateDestination);
+router.delete("/delete", deleteDestination);
 
 module.exports = router;
