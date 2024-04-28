@@ -11,6 +11,17 @@ const getAllDestinations = (req, res) => {
     });
 };
 
+const getDestinationByEmail = (req, res) => {
+  const { email } = req.params;
+  destinations
+    .find({ email: email })
+    .toArray()
+    .then((data) => {
+      res.status(200);
+      res.send(data);
+    });
+};
+
 const getDestinationDetails = (req, res) => {
   const objId = new BSON.ObjectId(req.params._id);
   destinations
@@ -136,6 +147,7 @@ const updateDestination = (req, res) => {
 
 const deleteDestination = (req, res) => {
   const { _id, email } = req.headers;
+  console.log(_id, email);
   const objID = new BSON.ObjectId(_id);
   destinations
     .deleteOne({
@@ -158,6 +170,7 @@ const deleteDestination = (req, res) => {
 
 module.exports.getAllDestinations = getAllDestinations;
 module.exports.getDestinationDetails = getDestinationDetails;
+module.exports.getDestinationByEmail = getDestinationByEmail;
 module.exports.getDestinationsByCountry = getDestinationsByCountry;
 module.exports.createNewDestination = createNewDestination;
 module.exports.updateDestination = updateDestination;
